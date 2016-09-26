@@ -9,5 +9,6 @@
   <string name="content_test">Search for a Stock Symbol</string>
   <string name="input_hint">FB</string>
   <string name="input_prefill"></string>
-  <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+  <string name="network_unavailable_toast">Uh-oh, no internet connection to load the stocks!</string>
+  <string name="error_no_data">No stock data is available</string>
 </resources>
