@@ -4,7 +4,12 @@ import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import java.util.ArrayList;
@@ -21,7 +26,7 @@ public class Utils {
 
   public static boolean showPercent = true;
 
-  public static ArrayList quoteJsonToContentVals(String JSON){
+  public static ArrayList quoteJsonToContentVals(String JSON, Context context){
     ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
     JSONObject jsonObject = null;
     JSONArray resultsArray = null;
@@ -33,14 +38,18 @@ public class Utils {
         if (count == 1){
           jsonObject = jsonObject.getJSONObject("results")
               .getJSONObject("quote");
-          batchOperations.add(buildBatchOperation(jsonObject));
+          if(validateStockResponse(jsonObject, context)) {
+            batchOperations.add(buildBatchOperation(jsonObject));
+          }
         } else{
           resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
 
           if (resultsArray != null && resultsArray.length() != 0){
             for (int i = 0; i < resultsArray.length(); i++){
               jsonObject = resultsArray.getJSONObject(i);
-              batchOperations.add(buildBatchOperation(jsonObject));
+              if(validateStockResponse(jsonObject, context)) {
+                batchOperations.add(buildBatchOperation(jsonObject));
+              }
             }
           }
         }
@@ -49,6 +58,25 @@ public class Utils {
       Log.e(LOG_TAG, "String to JSON failed: " + e);
     }
     return batchOperations;
+  }
+
+  private static boolean validateStockResponse(JSONObject jsonObject, final Context context) {
+    try {
+      String bid = jsonObject.getString("Bid");
+      if(bid.equals("null")) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+          @Override
+          public void run() {
+            Toast.makeText(context, context.getString(R.string.stock_unknown_toast), Toast.LENGTH_SHORT).show();
+          }
+        });
+        return false;
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return true;
   }
 
   public static String truncateBidPrice(String bidPrice){
