@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.facebook.stetho.Stetho;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
@@ -56,6 +57,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Stetho.initializeWithDefaults(this);
     mContext = this;
 
     setContentView(R.layout.activity_my_stocks);
@@ -70,8 +72,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
             new RecyclerViewItemClickListener.OnItemClickListener() {
               @Override public void onItemClick(View v, int position) {
-                //TODO:
-                // do something on item click
+                Intent intent = new Intent(mContext, GraphActivity.class);//.putExtra(Intent.EXTRA_TEXT, movie);
+                int stockID = mCursorAdapter.getStockID(position);
+                intent.putExtra(GraphActivity.STOCK_ID, stockID);
+                startActivity(intent);
               }
             }));
     recyclerView.setAdapter(mCursorAdapter);
