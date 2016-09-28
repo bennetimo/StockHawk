@@ -1,14 +1,31 @@
 <resources>
-  <string name="app_name">Stock Hawk</string>
 
-  <string name="action_example">Example action</string>
+  <!-- General strings -->
 
+  <!--The name of the app that appears in the app bar-->
+  <string name="app_name" translatable="false">Stock Hawk</string>
+  <!-- Appears in action bar to change units from value to percent-->
   <string name="action_change_units">Change Units</string>
+  <!-- Used as title in new stock search dialogue-->
   <string name="symbol_search">Symbol Search</string>
+  <!-- Used as description in new stock search dialogue-->
   <string name="content_test">Search for a Stock Symbol</string>
-  <string name="input_hint">FB</string>
+  <!-- Example stock shown in new stock search dialogue-->
+  <string name="input_hint" translatable="false">FB</string>
+  <!-- Prefilled stock for new stock search dialogue -->
   <string name="input_prefill"></string>
-  <string name="network_unavailable_toast">Uh-oh, no internet connection to load the stocks!</string>
-  <string name="stock_unknown_toast">That stock code is unknown</string>
-  <string name="error_no_data">No stock data is available</string>
+  <!-- Displayed when no data has been loaded yet -->
+  <string name="no_data_loaded">No stock data is available, or still loading</string>
+  <!-- Description of the line for stock closing price -->
+  <string name="graph_line">Close Price</string>
+
+  <!-- Error strings-->
+
+    <!-- Error toast displayed when network is down-->
+    <string name="error_network_unavailable">Uh-oh, no internet connection to load the stocks!</string>
+    <!-- Error message displayed when the stock code searched for is not found -->
+    <string name="error_stock_unknown">That stock code is unknown</string>
+    <!-- Error message displayed if the user tries to add a duplicate stock-->
+    <string name="error_stock_already_saved">This stock is already saved!</string>
+
 </resources>

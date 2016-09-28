@@ -86,14 +86,14 @@ public class GraphActivity extends AppCompatActivity implements LoaderManager.Lo
         List<Quote> quotes = quoteHistory.query.result.quotes;
         chart.setKeepPositionOnRotation(true);
 
-        List<Entry> entries = new ArrayList<Entry>();
+        List<Entry> entries = new ArrayList<>();
 
         for (int i = 0; i < quotes.size(); i++) {
             Quote quote = quotes.get(i);
             Entry e = new Entry(i, Float.valueOf(quote.close));
             entries.add(e);
         }
-        LineDataSet dataSet = new LineDataSet(entries, "Close Price");
+        LineDataSet dataSet = new LineDataSet(entries, getApplicationContext().getString(R.string.graph_line));
         dataSet.setColor(getResources().getColor(R.color.chart_line_background));
         dataSet.setValueTextColor(getResources().getColor(R.color.chart_value_text));
         dataSet.setValueTextSize(7f);
@@ -120,7 +120,6 @@ public class GraphActivity extends AppCompatActivity implements LoaderManager.Lo
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
         chart.animateY(800);
-
     }
 
     public class MyXAxisValueFormatter implements AxisValueFormatter {

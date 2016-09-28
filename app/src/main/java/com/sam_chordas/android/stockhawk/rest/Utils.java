@@ -67,7 +67,7 @@ public class Utils {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
           @Override
           public void run() {
-            Toast.makeText(context, context.getString(R.string.stock_unknown_toast), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.error_stock_unknown), Toast.LENGTH_SHORT).show();
           }
         });
         return false;

@@ -20,6 +20,6 @@
         android:gravity="center"
         android:fontFamily="sans-serif-condensed"
         android:textAppearance="?android:textAppearanceLarge"
-        android:text="@string/error_no_data"/>
+        android:text="@string/no_data_loaded"/>
 
 </FrameLayout>

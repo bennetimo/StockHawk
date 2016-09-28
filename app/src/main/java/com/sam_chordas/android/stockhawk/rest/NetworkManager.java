@@ -34,7 +34,7 @@ public class NetworkManager extends BroadcastReceiver {
     }
 
     public void networkUnavailableToast(){
-        Toast.makeText(mContext, mContext.getString(R.string.network_unavailable_toast), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, mContext.getString(R.string.error_network_unavailable), Toast.LENGTH_SHORT).show();
     }
 
     public Intent createServiceIntent(){

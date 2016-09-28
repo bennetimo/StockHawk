@@ -16,7 +16,6 @@ import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
 public class WidgetRemoteViewsService extends RemoteViewsService {
 
-    public final String LOG_TAG = WidgetRemoteViewsService.class.getSimpleName();
     private static final String[] QUOTE_COLUMNS = {
             QuoteColumns._ID,
             QuoteColumns.SYMBOL,
@@ -85,7 +84,6 @@ public class WidgetRemoteViewsService extends RemoteViewsService {
 
                 int id = data.getInt(INDEX_STOCK_ID);
                 String symbol = data.getString(INDEX_STOCK_SYMBOL);
-                String percentChange = data.getString(INDEX_STOCK_PERCENT_CHANGE);
                 String change = data.getString(INDEX_STOCK_CHANGE);
                 String bidPrice = data.getString(INDEX_STOCK_BIDPRICE);
 
