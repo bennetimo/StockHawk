@@ -32,11 +32,11 @@
     <!-- Description of the stock graph on the detail page -->
     <string name="cd_linegraph">stock history graph</string>
     <!-- Description of the stock list on the main page -->
-    <string name="cd_stocklist">stock list</string>
+    <string name="cd_stocklist">stocks</string>
     <!-- Description of the empty stock screen -->
-    <string name="cd_empty_stocklist">empty stock list</string>
+    <string name="cd_empty_stocklist">empty stocks view</string>
     <!-- Description of the add stock fab button -->
-    <string name="cd_add_stock_button">add stock button</string>
+    <string name="cd_add_stock_button">add stock</string>
     <!-- Description of the stock symbol in the list -->
     <string name="cd_stock_symbol">stock symbol</string>
     <!-- Description of the stock bid price in the list -->
