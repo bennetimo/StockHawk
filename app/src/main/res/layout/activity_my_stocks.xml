@@ -7,7 +7,8 @@
     <com.sam_chordas.android.stockhawk.ui.EmptyRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:contentDescription="@string/cd_stocklist"/>
 
     <TextView
         android:id="@+id/empty_data_view"
@@ -20,6 +21,7 @@
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
+        android:contentDescription="@string/cd_empty_stocklist"
         android:text="@string/no_data_loaded"/>
 
   <com.melnykov.fab.FloatingActionButton
@@ -29,6 +31,7 @@
       android:layout_gravity="bottom|end"
       android:layout_margin="16dp"
       android:src="@drawable/ic_add_white_24dp"
+      android:contentDescription="@string/cd_add_stock_button"
       fab:fab_colorNormal="@color/material_blue_500"
       fab:fab_colorPressed="@color/material_blue_600"
       fab:fab_colorRipple="@color/ripple"

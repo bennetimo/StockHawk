@@ -25,6 +25,7 @@
             style="@style/StockSymbolTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/cd_stock_symbol"
             android:gravity="start|center_vertical" />
 
         <LinearLayout
@@ -39,6 +40,7 @@
                 style="@style/BidPriceTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/cd_stock_bid_price"
                 android:paddingLeft="@dimen/widget_padding_horizontal"
                 android:paddingRight="@dimen/widget_padding_horizontal"
                 android:paddingStart="@dimen/widget_padding_horizontal"
@@ -50,6 +52,7 @@
                 style="@style/PercentChangeTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/cd_stock_percent_change"
                 android:paddingBottom="@dimen/widget_padding_vertical"
                 android:paddingLeft="@dimen/widget_padding_horizontal"
                 android:paddingStart="@dimen/widget_padding_horizontal"

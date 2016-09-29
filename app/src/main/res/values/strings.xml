@@ -2,22 +2,22 @@
 
   <!-- General strings -->
 
-  <!--The name of the app that appears in the app bar-->
-  <string name="app_name" translatable="false">Stock Hawk</string>
-  <!-- Appears in action bar to change units from value to percent-->
-  <string name="action_change_units">Change Units</string>
-  <!-- Used as title in new stock search dialogue-->
-  <string name="symbol_search">Symbol Search</string>
-  <!-- Used as description in new stock search dialogue-->
-  <string name="content_test">Search for a Stock Symbol</string>
-  <!-- Example stock shown in new stock search dialogue-->
-  <string name="input_hint" translatable="false">FB</string>
-  <!-- Prefilled stock for new stock search dialogue -->
-  <string name="input_prefill"></string>
-  <!-- Displayed when no data has been loaded yet -->
-  <string name="no_data_loaded">No stock data is available, or still loading</string>
-  <!-- Description of the line for stock closing price -->
-  <string name="graph_line">Close Price</string>
+    <!--The name of the app that appears in the app bar-->
+    <string name="app_name" translatable="false">Stock Hawk</string>
+    <!-- Appears in action bar to change units from value to percent-->
+    <string name="action_change_units">Change Units</string>
+    <!-- Used as title in new stock search dialogue-->
+    <string name="symbol_search">Symbol Search</string>
+    <!-- Used as description in new stock search dialogue-->
+    <string name="content_test">Search for a Stock Symbol</string>
+    <!-- Example stock shown in new stock search dialogue-->
+    <string name="input_hint" translatable="false">FB</string>
+    <!-- Prefilled stock for new stock search dialogue -->
+    <string name="input_prefill"></string>
+    <!-- Displayed when no data has been loaded yet -->
+    <string name="no_data_loaded">No stock data is available, or still loading</string>
+    <!-- Description of the line for stock closing price -->
+    <string name="graph_line">Close Price</string>
 
   <!-- Error strings-->
 
@@ -27,5 +27,21 @@
     <string name="error_stock_unknown">That stock code is unknown</string>
     <!-- Error message displayed if the user tries to add a duplicate stock-->
     <string name="error_stock_already_saved">This stock is already saved!</string>
+
+  <!-- Content description strings -->
+    <!-- Description of the stock graph on the detail page -->
+    <string name="cd_linegraph">stock history graph</string>
+    <!-- Description of the stock list on the main page -->
+    <string name="cd_stocklist">stock list</string>
+    <!-- Description of the empty stock screen -->
+    <string name="cd_empty_stocklist">empty stock list</string>
+    <!-- Description of the add stock fab button -->
+    <string name="cd_add_stock_button">add stock button</string>
+    <!-- Description of the stock symbol in the list -->
+    <string name="cd_stock_symbol">stock symbol</string>
+    <!-- Description of the stock bid price in the list -->
+    <string name="cd_stock_bid_price">stock bid price</string>
+    <!-- Description of the stock percent change in the list -->
+    <string name="cd_stock_percent_change">stock percent change</string>
 
 </resources>

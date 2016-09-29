@@ -22,6 +22,7 @@ import com.sam_chordas.android.stockhawk.data.QuoteHistory;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.service.StockHistoryTask;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +35,7 @@ public class GraphActivity extends AppCompatActivity implements LoaderManager.Lo
     static final String STOCK_ID = "stockID";
     private static final int CURSOR_LOADER_ID = 1;
     private int mStockID;
+    private SimpleDateFormat dateFormatApi = new SimpleDateFormat("yyyy-MM-dd", Locale.US); //Use US locale so date is formatted correctly for the Yahoo API
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     @Override
@@ -66,8 +68,8 @@ public class GraphActivity extends AppCompatActivity implements LoaderManager.Lo
             calendar.add(Calendar.DAY_OF_YEAR, -30);
             Date lastWeek = calendar.getTime();
 
-            String startDate = dateFormat.format(lastWeek);
-            String endDate = dateFormat.format(now);
+            String startDate = dateFormatApi.format(lastWeek);
+            String endDate = dateFormatApi.format(now);
 
             new StockHistoryTask(symbol, startDate, endDate, this).execute();
         }
@@ -78,48 +80,50 @@ public class GraphActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     public void onQuoteHistoryLoaded(QuoteHistory quoteHistory) {
-        LineChart chart = (LineChart) findViewById(R.id.linechart);
-        chart.setBackgroundColor(getResources().getColor(R.color.chart_background));
-        chart.setDrawGridBackground(false);
-        chart.setDescription("");
+        if(quoteHistory != null) {
+            LineChart chart = (LineChart) findViewById(R.id.linechart);
+            chart.setBackgroundColor(getResources().getColor(R.color.chart_background));
+            chart.setDrawGridBackground(false);
+            chart.setDescription("");
 
-        List<Quote> quotes = quoteHistory.query.result.quotes;
-        chart.setKeepPositionOnRotation(true);
+            List<Quote> quotes = quoteHistory.query.result.quotes;
+            chart.setKeepPositionOnRotation(true);
 
-        List<Entry> entries = new ArrayList<>();
+            List<Entry> entries = new ArrayList<>();
 
-        for (int i = 0; i < quotes.size(); i++) {
-            Quote quote = quotes.get(i);
-            Entry e = new Entry(i, Float.valueOf(quote.close));
-            entries.add(e);
+            for (int i = 0; i < quotes.size(); i++) {
+                Quote quote = quotes.get(i);
+                Entry e = new Entry(i, Float.valueOf(quote.close));
+                entries.add(e);
+            }
+            LineDataSet dataSet = new LineDataSet(entries, getApplicationContext().getString(R.string.graph_line));
+            dataSet.setColor(getResources().getColor(R.color.chart_line_background));
+            dataSet.setValueTextColor(getResources().getColor(R.color.chart_value_text));
+            dataSet.setValueTextSize(7f);
+            dataSet.setLineWidth(5.0f);
+            dataSet.setCircleColor(getResources().getColor(R.color.chart_value_colour));
+
+            YAxis axisRight = chart.getAxisRight();
+            axisRight.setEnabled(false);
+
+            YAxis axisLeft = chart.getAxisLeft();
+            axisLeft.setTextColor(getResources().getColor(R.color.chart_axis_labels));
+            axisLeft.setTextSize(12f);
+
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(quotes));
+            xAxis.setLabelCount(5);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setTextSize(12f);
+            xAxis.setTextColor(getResources().getColor(R.color.chart_axis_labels));
+            xAxis.setDrawAxisLine(true);
+            xAxis.setDrawGridLines(false);
+            xAxis.setLabelRotationAngle(90.0f);
+
+            LineData lineData = new LineData(dataSet);
+            chart.setData(lineData);
+            chart.animateY(800);
         }
-        LineDataSet dataSet = new LineDataSet(entries, getApplicationContext().getString(R.string.graph_line));
-        dataSet.setColor(getResources().getColor(R.color.chart_line_background));
-        dataSet.setValueTextColor(getResources().getColor(R.color.chart_value_text));
-        dataSet.setValueTextSize(7f);
-        dataSet.setLineWidth(5.0f);
-        dataSet.setCircleColor(getResources().getColor(R.color.chart_value_colour));
-
-        YAxis axisRight = chart.getAxisRight();
-        axisRight.setEnabled(false);
-
-        YAxis axisLeft = chart.getAxisLeft();
-        axisLeft.setTextColor(getResources().getColor(R.color.chart_axis_labels));
-        axisLeft.setTextSize(12f);
-
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(quotes));
-        xAxis.setLabelCount(5);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextSize(12f);
-        xAxis.setTextColor(getResources().getColor(R.color.chart_axis_labels));
-        xAxis.setDrawAxisLine(true);
-        xAxis.setDrawGridLines(false);
-        xAxis.setLabelRotationAngle(90.0f);
-
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
-        chart.animateY(800);
     }
 
     public class MyXAxisValueFormatter implements AxisValueFormatter {
@@ -132,7 +136,15 @@ public class GraphActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            return mValues.get((int) value).date;
+            String date = mValues.get((int) value).date;
+            try {
+                //try to parse the date to the users locale
+                Date d = dateFormatApi.parse(date);
+                return dateFormat.format(d);
+            } catch (ParseException e) {
+                //fallback to date from api
+                return date;
+            }
         }
 
         @Override

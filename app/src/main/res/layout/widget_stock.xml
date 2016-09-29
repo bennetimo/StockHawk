@@ -11,6 +11,7 @@
         android:id="@+id/widget_stock_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/cd_stocklist"
         android:divider="@null"
         android:dividerHeight="0dp"/>
     <TextView
@@ -20,6 +21,7 @@
         android:gravity="center"
         android:fontFamily="sans-serif-condensed"
         android:textAppearance="?android:textAppearanceLarge"
+        android:contentDescription="@string/cd_empty_stocklist"
         android:text="@string/no_data_loaded"/>
 
 </FrameLayout>
